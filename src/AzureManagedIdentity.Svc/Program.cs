@@ -20,7 +20,9 @@ builder.Services.AddVersionedApiExplorer(option =>
     option.SubstituteApiVersionInUrl = true;
     option.AssumeDefaultVersionWhenUnspecified = true;
 });
+
 builder.Services.AddEndpointsApiExplorer();
+
 var versionDescriptionProvider = builder.Services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 
 foreach (var description in versionDescriptionProvider.ApiVersionDescriptions)
@@ -41,6 +43,8 @@ if (app.Environment.IsDevelopment())
     app.UseOpenApi();
     app.UseSwaggerUi3();
 }
+
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
