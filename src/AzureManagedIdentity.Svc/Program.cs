@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
-
 builder.Services.AddControllers();
 builder.Services.AddApiVersioning(options =>
 {
@@ -29,11 +26,11 @@ foreach (var description in versionDescriptionProvider.ApiVersionDescriptions)
 {
     builder.Services.AddSwaggerDocument(document =>
     {
+        document.Title = "Azure Managed Identity Sample";
         document.DocumentName = description.GroupName;
         document.Version = description.GroupName;
     });
 }
-
 
 var app = builder.Build();
 
