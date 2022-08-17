@@ -1,22 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureManagedIdentity.Svc", "ManagedIdentitySample\AzureManagedIdentity.Svc.csproj", "{302D11AC-3AFB-4996-B7F4-DD7A9E6B0295}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedIdentity.Svc", "ManagedIdentity.Svc\ManagedIdentity.Svc.csproj", "{C9534C43-A8FA-406E-97BC-AD9CEE9B1590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9534C43-A8FA-406E-97BC-AD9CEE9B1590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9534C43-A8FA-406E-97BC-AD9CEE9B1590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9534C43-A8FA-406E-97BC-AD9CEE9B1590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9534C43-A8FA-406E-97BC-AD9CEE9B1590}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{302D11AC-3AFB-4996-B7F4-DD7A9E6B0295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{302D11AC-3AFB-4996-B7F4-DD7A9E6B0295}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{302D11AC-3AFB-4996-B7F4-DD7A9E6B0295}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{302D11AC-3AFB-4996-B7F4-DD7A9E6B0295}.Release|Any CPU.Build.0 = Release|Any CPU
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63C34945-0EA0-40D6-AE46-3AB5C8081356}
 	EndGlobalSection
 EndGlobal
