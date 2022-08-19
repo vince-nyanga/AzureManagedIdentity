@@ -1,3 +1,6 @@
+using ManagedIdentity.Svc.Extenstions;
+using ManagedIdentity.Svc.TableStorage;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTableStorage(builder.Configuration);
+
 
 var app = builder.Build();
 
