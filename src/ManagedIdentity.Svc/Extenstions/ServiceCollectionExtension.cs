@@ -1,4 +1,6 @@
-﻿using ManagedIdentity.Svc.TableStorage;
+﻿using Azure.Data.Tables;
+using Azure.Identity;
+using ManagedIdentity.Svc.TableStorage;
 
 namespace ManagedIdentity.Svc.Extenstions
 {
@@ -7,10 +9,17 @@ namespace ManagedIdentity.Svc.Extenstions
         public static void AddTableStorage(this IServiceCollection services, IConfiguration configuration)
         {
             var tableStorageUri = configuration["TableStorageUri"];
-            var tableStorage = TableStorageBuilder.UsingUri(tableStorageUri)
-                .WithTable("todos")
-                .Build();
-            services.AddSingleton<ITableStorage>(tableStorage);
+
+            if (Uri.TryCreate(tableStorageUri, UriKind.Absolute, out var tableUri))
+            {
+                var tableServiceClient = new TableServiceClient(tableUri, new DefaultAzureCredential());
+                services.AddSingleton<ITableStorageService>(new TableStorageService(tableServiceClient));
+                services.AddTransient<ITableStorageRepository, TableStorageRepository>();
+            }
+            else
+            {
+                throw new Exception("Invalid table storage URI");
+            }
         }
     }
 }
