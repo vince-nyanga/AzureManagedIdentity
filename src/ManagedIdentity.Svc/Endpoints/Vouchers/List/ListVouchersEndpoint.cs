@@ -29,7 +29,7 @@ namespace ManagedIdentity.Svc.Endpoints.Vouchers.List
        ]
         public override async Task<ActionResult<IEnumerable<Voucher>>> HandleAsync(CancellationToken cancellationToken = default)
         {
-            var vouchers = await _mediator.Send(new ListVouchers());
+            var vouchers = await _mediator.Send(new ListVouchers(), cancellationToken);
 
             return Ok(vouchers);
         }

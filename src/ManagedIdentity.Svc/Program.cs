@@ -1,5 +1,12 @@
+using FluentValidation;
+using Hellang.Middleware.ProblemDetails;
+using ManagedIdentity.Svc.Exceptions;
 using ManagedIdentity.Svc.Extenstions;
 using MediatR;
+using MediatR.Extensions.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +21,31 @@ static void BuildServices(IServiceCollection services, IConfiguration configurat
     services.AddEndpointsApiExplorer();
     services.AddSwaggerGen(c =>
     {
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Version = "v1",
+            Title = "Vouchers API",
+            Description = "An API for managing vouchers",
+        });
         c.EnableAnnotations();
     });
     services.AddTableStorage(configuration);
-    services.AddMediatR(typeof(Program));
 
+    var assembly = typeof(Program).Assembly;
+    services.AddMediatR(assembly);
+    services.AddFluentValidation(new[] { assembly });
+
+    services.AddProblemDetails(c =>
+    {
+        c.Map<ValidationException>(ex => new ProblemDetails
+        {
+            Status = (int)HttpStatusCode.BadRequest,
+            Title = "Validation failed",
+            Detail = string.Join(", ", ex.Errors.Select(x => x.ErrorMessage))
+        });
+        c.MapToStatusCode<VoucherNotFoundException>((int)HttpStatusCode.NotFound);
+        c.MapToStatusCode<VoucherAlreadyRedeemedException>((int)HttpStatusCode.Conflict);
+    });
 }
 
 static void ConfigureApplication(WebApplication app)
@@ -28,6 +55,8 @@ static void ConfigureApplication(WebApplication app)
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.UseProblemDetails();
 
     app.UseHttpsRedirection();
 

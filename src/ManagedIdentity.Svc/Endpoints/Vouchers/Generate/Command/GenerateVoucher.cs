@@ -2,7 +2,7 @@
 
 namespace ManagedIdentity.Svc.Endpoints.Vouchers.Generate.Command
 {
-    public class GenerateVoucher : IRequest
+    public record GenerateVoucher : IRequest
     {
     }
 }
