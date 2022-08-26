@@ -455,3 +455,4 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 **/.cr/*
+**/Properties/*

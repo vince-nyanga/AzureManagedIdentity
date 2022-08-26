@@ -50,11 +50,12 @@ static void BuildServices(IServiceCollection services, IConfiguration configurat
 
 static void ConfigureApplication(WebApplication app)
 {
-    if (app.Environment.IsDevelopment())
+    app.UseSwagger();
+    app.UseSwaggerUI(options => 
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
 
     app.UseProblemDetails();
 
@@ -66,7 +67,3 @@ static void ConfigureApplication(WebApplication app)
 
     app.Run();
 }
-
-
-// Configure the HTTP request pipeline.
-
