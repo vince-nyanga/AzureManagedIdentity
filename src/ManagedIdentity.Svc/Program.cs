@@ -1,5 +1,5 @@
 using ManagedIdentity.Svc.Extenstions;
-using ManagedIdentity.Svc.TableStorage;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTableStorage(builder.Configuration);
+builder.Services.AddMediatR(typeof(Program));
 
 
 var app = builder.Build();

@@ -31,7 +31,7 @@ namespace ManagedIdentity.Svc.TableStorage
             }
             catch (RequestFailedException)
             {
-                throw new EntityAlreadyExistsException();
+                throw;
             }
         }
 
