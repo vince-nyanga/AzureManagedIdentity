@@ -22,7 +22,7 @@ namespace ManagedIdentity.Svc.Endpoints.Vouchers.Generate
             Summary = "Generates a new voucher",
             Description = "Generates a new voucher",
             OperationId = "Voucher.Generate",
-            Tags = new[] { "VoucherEndpoint" })
+            Tags = new[] { "Vouchers" })
         ]
         public override async Task<ActionResult> HandleAsync(CancellationToken cancellationToken = default)
         {

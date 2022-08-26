@@ -3,29 +3,41 @@ using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+BuildServices(builder.Services, builder.Configuration);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddTableStorage(builder.Configuration);
-builder.Services.AddMediatR(typeof(Program));
+ConfigureApplication(builder.Build());
 
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+static void BuildServices(IServiceCollection services, IConfiguration configuration)
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    services.AddControllers();
+
+    services.AddEndpointsApiExplorer();
+    services.AddSwaggerGen(c =>
+    {
+        c.EnableAnnotations();
+    });
+    services.AddTableStorage(configuration);
+    services.AddMediatR(typeof(Program));
+
 }
 
-app.UseHttpsRedirection();
+static void ConfigureApplication(WebApplication app)
+{
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
-app.UseAuthorization();
+    app.UseHttpsRedirection();
 
-app.MapControllers();
+    app.UseAuthorization();
 
-app.Run();
+    app.MapControllers();
+
+    app.Run();
+}
+
+
+// Configure the HTTP request pipeline.
+

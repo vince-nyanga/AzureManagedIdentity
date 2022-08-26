@@ -9,7 +9,7 @@ namespace ManagedIdentity.Svc.Entities
 
         public string RowKey { get; set; }
 
-        public string RedeemedBy { get; set; }
+        public string? RedeemedBy { get; set; }
 
         public DateTimeOffset? Timestamp { get; set; }
 
