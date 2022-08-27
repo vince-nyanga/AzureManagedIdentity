@@ -10,9 +10,18 @@ namespace ManagedIdentity.Svc.Extenstions
         {
             var tableStorageUri = configuration["TableStorageUri"];
 
+            // User-assigned managed identity
+            var managedIdentityClientId = configuration["IdentityClientId"];
+
+            // If you are using a system-assigned managed identity you don't need the options
+            var options = new DefaultAzureCredentialOptions
+            {
+                ManagedIdentityClientId = managedIdentityClientId
+            };
+
             if (Uri.TryCreate(tableStorageUri, UriKind.Absolute, out var tableUri))
             {
-                var tableServiceClient = new TableServiceClient(tableUri, new DefaultAzureCredential());
+                var tableServiceClient = new TableServiceClient(tableUri, new DefaultAzureCredential(options));
                 services.AddSingleton<ITableStorageService>(new TableStorageService(tableServiceClient));
                 services.AddTransient<ITableStorageRepository, TableStorageRepository>();
             }
